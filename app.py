@@ -6,6 +6,10 @@ app = Flask(__name__)
 def index():
     return render_template('index.html',home_link=True)
 
+@app.route('/browse')
+def browse():
+    return render_template('browse.html' ,browse_link=True)
+
 @app.route('/petfinder')
 def petfinder():
     return render_template('petfinder.html',adopt_link=True)
