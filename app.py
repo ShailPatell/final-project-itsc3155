@@ -10,7 +10,8 @@ def index():
 
 @app.route('/browse')
 def browse():
-    return render_template('browse.html' ,browse_link=True)
+    return render_template('browse.html', browse_link=True)
+
 
 @app.route('/petfinder')
 def petfinder():
@@ -30,7 +31,8 @@ def petpost():
 @app.post('/petview')
 def petview():
     return render_template('petview.html')
+
+
 @app.route('/login')
 def login():
     return render_template('login.html')
-
