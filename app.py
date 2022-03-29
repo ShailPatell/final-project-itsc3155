@@ -21,3 +21,8 @@ def petview():
 @app.route('/faq')
 def faq():
     return render_template('faq.html')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
