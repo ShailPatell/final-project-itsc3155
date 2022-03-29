@@ -21,11 +21,6 @@ def petfinder():
 def faq():
     return render_template('faq.html')
 
-<<<<<<< HEAD
-@app.route('/login')
-def login():
-    return render_template('login.html')
-=======
 
 @app.get('/petpost')
 def petpost():
@@ -39,4 +34,3 @@ def petview():
 def login():
     return render_template('login.html')
 
->>>>>>> main
