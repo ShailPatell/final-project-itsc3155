@@ -1,137 +1,206 @@
-{% extends '_layout.html' %}
-
-{% block body %}
+{% extends '_layout.html' %} {% block body %}
 <style>
-    .input_font {
-        padding-top: 30px;
-        font-size: 22px;
-    }
+	.input_font {
+		padding-top: 30px;
+		font-size: 22px;
+	}
 
-    .btn {
-        margin-top: 20px;
-        font-size: 20px;
-        background-color: lightskyblue;
-        border-color: lightskyblue;
-    }
+	.btn {
+		margin-top: 20px;
+		font-size: 20px;
+		background-color: lightskyblue;
+		border-color: lightskyblue;
+	}
 
-    #last_input {
-        margin-bottom: 100px;
-    }
+	#last_input {
+		margin-bottom: 100px;
+	}
 </style>
 <div class="container">
-    <br>
-    <h1>Post Your Pet Here:</h1>
-    <div class="row g-2">
-        <div class="col-md">
-            <div class="form-floating">
-                <div class="mb-3">
-                    <label for="dog_breed_input" class="form-label input_font">Dog Breed:</label>
-                    <input type="input" class="form-control" name="dog_breed_input" placeholder="Ex: Bulldog">
-                </div>
-            </div>
-        </div>
-        <div class="col-md">
-            <div class="form-floating">
-                <div class="mb-3">
-                    <label for="phone_number_input" class="form-label input_font">Phone Number:</label>
-                    <input type="input" class="form-control" name="phone_number_input" placeholder="Ex: 123-456-7890">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row g-2">
-        <div class="col-md">
-            <div class="form-floating">
-                <div class="mb-3">
-                    <label for="age_input" class="form-label input_font">Age:</label>
-                    <input type="input" class="form-control" name="age_input" placeholder="Ex: 10">
-                </div>
-            </div>
-        </div>
-        <div class="col-md">
-            <div class="form-floating">
-                <div class="mb-3">
-                    <label for="hours_trained_input" class="form-label input_font">Hours Trained:</label>
-                    <input type="input" class="form-control" name="hours_trained_input" placeholder="Ex: 32 (hours)">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row g-2">
-        <div class="col-md">
-            <div class="form-floating">
-                <div class="mb-3" id="first_multiple_choice">
-                    <label for="sex_input" class="form-label input_font">Sex:</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sex_input" id="male_sex_input">
-                        <label class="form-check-label" for="male_sex_input">
-                            Male
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sex_input" id="female_sex_input">
-                        <label class="form-check-label" for="female_sex_input">
-                            Female
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md">
-            <div class="form-floating">
-                <div class="mb-3">
-                    <label for="pet_name_input" class="form-label input_font">Pet Name:</label>
-                    <input type="input" class="form-control" name="pet_name_input" placeholder="Ex: Koko">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row g-2">
-        <div class="col-md">
-            <div class="form-floating">
-                <div class="mb-3">
-                    <label for="sex_input" class="form-label input_font">Health:</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sex_input" id="intact_health_input">
-                        <label class="form-check-label" for="intact_health_input">
-                            Intact
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sex_input" id="s/n_health_input">
-                        <label class="form-check-label" for="s/n_health_input">
-                            Spayed/Neutered
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md">
-            <div class="form-floating">
-                <div class="mb-3">
-                    <label for="pet_image_file" class="form-label input_font">Pet Image:</label>
-                    <input class="form-control" type="file" id="pet_image_file">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="mb-3">
-        <label for="pet_description_input" class="form-label input_font">Pet Description:</label>
-        <textarea class="form-control" name="pet_description_input" rows="3"
-            placeholder="Describe your pet, as well as any health concerns"></textarea>
-    </div>
-    <div class="mb-3">
-        <label for="location_input" class="form-label input_font">Location:</label>
-        <input type="input" class="form-control" name="location_input" placeholder="Ex: 1234 Pineapple Drive">
-    </div>
-    <div class="mb-3">
-        <label for="email_input" class="form-label input_font">Email:</label>
-        <input type="input" class="form-control" name="email_input" placeholder="Ex: humanbeing@emailaddress.com">
-    </div>
-    <div class="text-center">
-        <form action="/petview" method="post">
-            <button type="submit" class="btn btn-primary" id="last_input">Submit</button>
-        </form>
-    </div>
+	<br />
+	<h1>Post Your Pet Here:</h1>
+	<div class="row g-2">
+		<div class="col-md">
+			<div class="form-floating">
+				<div class="mb-3">
+					<label for="dog_breed_input" class="form-label input_font"
+						>Dog Breed:</label
+					>
+					<input
+						type="input"
+						class="form-control"
+						name="dog_breed_input"
+						placeholder="Ex: Bulldog"
+					/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md">
+			<div class="form-floating">
+				<div class="mb-3">
+					<label for="phone_number_input" class="form-label input_font"
+						>Phone Number:</label
+					>
+					<input
+						type="input"
+						class="form-control"
+						name="phone_number_input"
+						placeholder="Ex: 123-456-7890"
+					/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row g-2">
+		<div class="col-md">
+			<div class="form-floating">
+				<div class="mb-3">
+					<label for="age_input" class="form-label input_font">Age:</label>
+					<input
+						type="input"
+						class="form-control"
+						name="age_input"
+						placeholder="Ex: 10"
+					/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md">
+			<div class="form-floating">
+				<div class="mb-3">
+					<label for="hours_trained_input" class="form-label input_font"
+						>Hours Trained:</label
+					>
+					<input
+						type="input"
+						class="form-control"
+						name="hours_trained_input"
+						placeholder="Ex: 32 (hours)"
+					/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row g-2">
+		<div class="col-md">
+			<div class="form-floating">
+				<div class="mb-3" id="first_multiple_choice">
+					<label for="sex_input" class="form-label input_font">Sex:</label>
+					<div class="form-check">
+						<input
+							class="form-check-input"
+							type="radio"
+							name="sex_input"
+							id="male_sex_input"
+						/>
+						<label class="form-check-label" for="male_sex_input"> Male </label>
+					</div>
+					<div class="form-check">
+						<input
+							class="form-check-input"
+							type="radio"
+							name="sex_input"
+							id="female_sex_input"
+						/>
+						<label class="form-check-label" for="female_sex_input">
+							Female
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md">
+			<div class="form-floating">
+				<div class="mb-3">
+					<label for="pet_name_input" class="form-label input_font"
+						>Pet Name:</label
+					>
+					<input
+						type="input"
+						class="form-control"
+						name="pet_name_input"
+						placeholder="Ex: Koko"
+					/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row g-2">
+		<div class="col-md">
+			<div class="form-floating">
+				<div class="mb-3">
+					<label for="sex_input" class="form-label input_font">Health:</label>
+					<div class="form-check">
+						<input
+							class="form-check-input"
+							type="radio"
+							name="sex_input"
+							id="intact_health_input"
+						/>
+						<label class="form-check-label" for="intact_health_input">
+							Intact
+						</label>
+					</div>
+					<div class="form-check">
+						<input
+							class="form-check-input"
+							type="radio"
+							name="sex_input"
+							id="s/n_health_input"
+						/>
+						<label class="form-check-label" for="s/n_health_input">
+							Spayed/Neutered
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md">
+			<div class="form-floating">
+				<div class="mb-3">
+					<label for="pet_image_file" class="form-label input_font"
+						>Pet Image:</label
+					>
+					<input class="form-control" type="file" id="pet_image_file" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="mb-3">
+		<label for="pet_description_input" class="form-label input_font"
+			>Pet Description:</label
+		>
+		<textarea
+			class="form-control"
+			name="pet_description_input"
+			rows="3"
+			placeholder="Describe your pet, as well as any health concerns"
+		></textarea>
+	</div>
+	<div class="mb-3">
+		<label for="location_input" class="form-label input_font">Location:</label>
+		<input
+			type="input"
+			class="form-control"
+			name="location_input"
+			placeholder="Ex: 1234 Pineapple Drive"
+		/>
+	</div>
+	<div class="mb-3">
+		<label for="email_input" class="form-label input_font">Email:</label>
+		<input
+			type="input"
+			class="form-control"
+			name="email_input"
+			placeholder="Ex: humanbeing@emailaddress.com"
+		/>
+	</div>
+	<div class="text-center">
+		<form action="/petview" method="post">
+			<button type="submit" class="btn btn-primary" id="last_input">
+				Submit
+			</button>
+		</form>
+	</div>
 </div>
 {% endblock %}
