@@ -27,7 +27,7 @@ def faq():
 def petpost():
     return render_template('petpost.html', post_link=True)
 
-
+# The route names may be better if you follow the pattern outlined in the PPT, it also allows for a better refactor into blueprints
 @app.post('/petview')
 def petview():
     return render_template('petview.html')
