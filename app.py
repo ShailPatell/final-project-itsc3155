@@ -1,6 +1,22 @@
+import os
 from flask import Flask, redirect, render_template, request
+from dotenv import load_dotenv
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+
+load_dotenv()
+db_user = os.getenv('DB_USER','root')
+db_pass = os.getenv('DB_PASSWORD')
+db_host = os.getenv('DB_HOST')
+db_port = os.getenv('DB_PORT')
+db_name = os.getenv('DB_NAME')
+
+db = SQLAlchemy()
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db.init_app(app)
 
 
 @app.route("/")
