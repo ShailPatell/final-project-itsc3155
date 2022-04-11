@@ -1,7 +1,10 @@
 import os
-from flask import Flask, redirect, render_template, request
+from flask_bcrypt import Bcrypt
+from flask import Flask, session, abort, redirect, render_template, request
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
+from pymysql import NULL
+from src.repositories.pet_repository import pet_repository_singleton, User
 
 app = Flask(__name__)
 
@@ -16,11 +19,16 @@ db = SQLAlchemy()
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db.init_app(app)
+app.secret_key = os.getenv('SECRET_KEY')
 
+bcrypt = Bcrypt(app)
+db.init_app(app)
 
 @app.route("/")
 def index():
+
+    # ToDo:  Find a better way check for user being logged in
+    
     return render_template('index.html', home_link=True)
 
 
@@ -52,3 +60,57 @@ def petview():
 @app.route('/login')
 def login():
     return render_template('login.html')
+
+@app.post('/login')
+def loginuser():
+    username = request.form.get('user_username', '')
+    password = request.form.get('user_password', '')
+
+    if username == '' or password == '':
+        abort(400)
+
+    existing_user = User.query.filter_by(user_username=username).first()
+    print(existing_user)
+
+    if not existing_user or existing_user.user_id == 0:
+        return redirect('/login')
+
+    if not bcrypt.check_password_hash(existing_user.user_password, password):
+        return redirect('/login')
+
+    session['user'] = {
+        'username': username,
+        'user_id': existing_user.user_id,
+        'user_email': existing_user.user_email_address
+    }
+    print(session['user'].get('username'))
+    return render_template('browse.html')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return render_template('login.html')
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+@app.post('/reguser')
+def reguser():
+
+    user_username = request.form.get('user_username', '')
+    user_password = request.form.get('user_password', '')
+    first_name = request.form.get('first_name', '')
+    last_name = request.form.get('last_name', '')
+    user_age = request.form.get('user_age', 0, type=int)
+    user_gender = request.form.get('user_gender', '')
+    user_email_address = request.form.get('user_email_address', '')
+
+    # ToDo: Need to add better validation and handle exceptions.
+    if user_username == '' or user_password == '':
+        abort(400)
+
+    hashed_password = bcrypt.generate_password_hash(user_password).decode('utf-8')
+
+    created_user = pet_repository_singleton.create_user(user_username, hashed_password, first_name, last_name, user_age, user_gender, user_email_address)
+    return redirect(f'/browse')
