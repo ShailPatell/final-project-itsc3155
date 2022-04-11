@@ -3,19 +3,16 @@
 {% block body %}
 <div class="container">
   <h1>Login</h1>
-  <form>
-    <!-- Email input -->
-    <div class="form-outline mb-4">
-      <input type="email" id="form2Example1" class="form-control" />
-      <label class="form-label" for="form2Example1">Email address</label>
-    </div>
-
-    <!-- Password input -->
-    <div class="form-outline mb-4">
-      <input type="password" id="form2Example2" class="form-control" />
-      <label class="form-label" for="form2Example2">Password</label>
-    </div>
-
+  <form action="/login" method="POST">
+    
+    <div class="mb-3">
+      <label for="user_username" class="form-label">Username</label>
+      <input type="text" class="form-control" id="user_username" name="user_username" placeholder="Enter Login Username" >
+  </div>
+  <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" id="user_password" name="user_password">
+  </div>
     <!-- 2 column grid layout for inline styling -->
     <div class="row mb-4">
       <div class="col d-flex justify-content-center">
@@ -28,11 +25,11 @@
 
 
       <!-- Submit button -->
-      <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+      <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
 
       <!-- Register buttons -->
       <div class="text-center">
-        <p>Not a member? <a href="#!">Register</a></p>
+        <p>Not a member? <a href="/register">Register</a></p>
       </div>
   </form>
 </div>
