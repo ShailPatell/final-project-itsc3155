@@ -23,5 +23,8 @@ CREATE TABLE IF NOT EXISTS pet (
     pet_gender VARCHAR(255) NOT NULL,
     pet_type VARCHAR(255) NOT NULL,
     pet_breed VARCHAR(255) NOT NULL,
+    pet_health VARCHAR(255) NOT NULL,
+    pet_owner VARCHAR(255) NOT NULL,
+    FOREIGN KEY (pet_owner) REFERENCES (user_id)
     PRIMARY KEY (pet_id)
 );
