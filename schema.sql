@@ -25,4 +25,3 @@ CREATE TABLE IF NOT EXISTS pet (
     pet_breed VARCHAR(255) NOT NULL,
     PRIMARY KEY (pet_id)
 );
-
