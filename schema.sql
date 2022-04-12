@@ -28,3 +28,13 @@ CREATE TABLE IF NOT EXISTS pet (
     FOREIGN KEY (pet_owner) REFERENCES (user_id)
     PRIMARY KEY (pet_id)
 );
+
+CREATE TABLE IF NOT EXISTS user_review (
+	review_id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    review VARCHAR(255) NULL,
+    rating DECIMAL NOT NULL,
+    user_review_id INT,
+    FOREIGN KEY (user_review_id) REFERENCES users(user_id),
+    post_id INT,
+    FOREIGN KEY (post_id) REFERENCES users(user_id)
+);
