@@ -26,21 +26,19 @@ db.init_app(app)
 
 @app.route("/")
 def index():
-
     # ToDo:  Find a better way check for user being logged in
-    
     return render_template('index.html', home_link=True)
 
 
 @app.route('/browse')
 def browse():
-    return render_template('browse.html', browse_link=True)
+    all_pets = pet_repository_singleton.get_all_pets()
+    return render_template('browse.html', browse_link=True, data=all_pets)
 
 
-@app.route('/petfinder')
-def petfinder():
-    return render_template('petfinder.html', adopt_link=True)
-
+#@app.route('/petfinder')
+#def petfinder():
+#    return render_template('petfinder.html', adopt_link=True)
 
 @app.route('/faq')
 def faq():
@@ -51,10 +49,45 @@ def faq():
 def petpost():
     return render_template('petpost.html', post_link=True)
 
+@app.post('/postpet')
+def savepet():
+    pet_name = request.form.get('pet_name', '')
+    pet_type = request.form.get('pet_type', '')
+    pet_gender = request.form.get('pet_gender', '')
+    pet_age = 1
+    pet_breed = request.form.get('pet_breed', '')
+    pet_health = request.form.get('pet_health', '')
+    pet_training = request.form.get('pet_training', '')
+    city = request.form.get('city', '')
+    state = request.form.get('state', '')
+    pet_about = request.form.get('pet_about','')
+    pet_owner = session['user'].get('user_id')
+    # Get thie image from the form
+    
+    image = request.files['photo']
+    print(image.filename)
+    
+    if image:
+        #save the image to the satic folder
+        image.save(os.path.join('./static',image.filename))
+        #write the image file to the database
+        photo = image.filename
+    else:
+        photo = ''
+    
 
-@app.post('/petview')
-def petview():
-    return render_template('petview.html')
+
+    created_pet = pet_repository_singleton.create_pet(pet_name, pet_age, pet_gender, pet_type, pet_breed, pet_health, pet_training, city, state, pet_about, pet_owner, photo)
+    return render_template('petview.html', post_link=True, data=created_pet)
+
+
+
+@app.route('/petview/<int:pet_id>')
+def petview(pet_id):
+    print(pet_id)
+    single_pet = pet_repository_singleton.get_pet(pet_id)
+    print(single_pet)
+    return render_template('petview.html', post_link=True, data=single_pet)
 
 
 @app.route('/login')
@@ -84,7 +117,7 @@ def loginuser():
         'user_email': existing_user.user_email_address
     }
     print(session['user'].get('username'))
-    return render_template('browse.html')
+    return render_template('index.html')
 
 @app.route('/logout')
 def logout():

@@ -2,10 +2,9 @@
 
 {% block body %}
 
-
-<h1>Browse page</h1>
-
 <div class="container">
+    <div class="space-10"></div>
+    <h1>Browse Pets </h1>
     <div class="row g-3">
         <div class="col">
             <div class="mt-5">
@@ -49,77 +48,21 @@
 <div class="container">
     <div class="card-deck">
         <div class="row gy-5">
-            <div class="col-sm-6">
-                <div class="card">
-                    <img class="card-img-top" src="{{ url_for('static', filename='cat.png') }}"  alt="Picture of Cat" >
-                    <div class="card-body">
-                        <h5 class="card-title">Leo</h5>
+            
+            {%for pet in data%}
+                <div class="col-sm-6">
+                    <div class="card">
+                        <a href="/petview/{{pet.pet_id}}">
+                            <img class="card-img-top" src="./static/{{pet.photo}}"  alt="Picture of {{pet.pet_name}}" >
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{pet.pet_name}}</h5>
+                            <h5 class="card-title">{{pet.city}}, {{pet.state}}</h5>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card">
-                    <img class="card-img-top" src="{{ url_for('static', filename='6.png') }}"  alt="Picture of Dog" >
-                    <div class="card-body">
-                        <h5 class="card-title">Rosie</h5>
-                    </div>
-                </div>
-            </div>
-        
-
-            <div class="col-sm-6">
-                <div class="card">
-                    <img class="card-img-top" src="{{ url_for('static', filename='lea.png') }}"  alt="Picture of Cat" >
-                    <div class="card-body">
-                        <h5 class="card-title">Alexis</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6">
-                <div class="card">
-                    <img class="card-img-top" src="{{ url_for('static', filename='lea.png') }}"  alt="Picture of Cat" >
-                    <div class="card-body">
-                        <h5 class="card-title">Eli</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6">
-                <div class="card">
-                    <img class="card-img-top" src="{{ url_for('static', filename='8.png') }}"  alt="Picture of Cat" >
-                    <div class="card-body">
-                        <h5 class="card-title">Mutton</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6">
-                <div class="card">
-                    <img class="card-img-top" src="{{ url_for('static', filename='Oscar.png') }}" alt="Picture of Cat" >
-                    <div class="card-body">
-                        <h5 class="card-title">Markus</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6">
-                <div class="card">
-                    <img class="card-img-top" src="{{ url_for('static', filename='pit-bull-featured.png') }}"  alt="Picture of Cat">
-                    <div class="card-body">
-                        <h5 class="card-title">Zeus</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6">
-                <div class="card">
-                    <img class="card-img-top" src="{{ url_for('static', filename='Oscar.png') }}"  alt="Picture of Cat" >
-                    <div class="card-body">
-                        <h5 class="card-title">Chop</h5>
-                    </div>
-                </div>
-            </div>
+            {%endfor%}
+           
         </div>
     </div>
 </div>

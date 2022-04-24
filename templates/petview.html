@@ -1,41 +1,43 @@
 {% extends '_layout.html' %} {% block body %}
+
 <div class="container">
-    <br>
-    <h1>Joe</h1>
+    <div class="space-10"></div>
+    <h1>Meet {{data.pet_name}}</h1>
+    <div class="space-10"></div>
     <div class="row">
         <div class="col">
-          <img src="https://www.europuppy.com/wp-content/uploads/2020/01/xIMG_9625-1.jpg.pagespeed.ic.aB3wA1tr1a.jpg" width="500" height="300"/>
+          <img src="/static/{{data.photo}}" width="500" height="300"/>
         </div>
         <div class="col">
           <table class="table">
             <tbody>
               <tr>
                 <td><strong>Age</strong></td>
-                <td>1 Year</td>
+                <td>{{data.pet_age}} Year</td>
               </tr>
               <tr>
                 <td><strong>Breed</strong></td>
-                <td>Breed</td>
+                <td>{{data.pet_breed}}</td>
               </tr>
               <tr>
-                <td><strong>Sex</strong></td>
-                <td>Female</td>
+                <td><strong>Gender</strong></td>
+                <td>{{data.pet_gender}}</td>
               </tr>
               <tr>
                 <td><strong>Health</strong></td>
-                <td>Health</td>
+                <td>{{data.pet_health}}</td>
               </tr>
               <tr>
                 <td><strong>Training</strong></td>
-                <td>Yes</td>
+                <td>{{data.pet_training}}</td>
               </tr>
               <tr>
                 <td><strong>Location</strong></td>
-                <td>Charlotte, NC</td>
+                <td>{{data.city}}, {{data.state}}</td>
               </tr>
               <tr>
                 <td><strong>Contact</strong></td>
-                <td>(704) 555-1212</td>
+                <td>user.email</td>
               </tr>
             </tbody>
           </table>
@@ -44,8 +46,8 @@
     <br>
     <div class="row">
       <div class="col">
-        <h3>About Joe </h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit architecto numquam vitae, perspiciatis officia totam eius sit. Corporis ipsa hic a placeat deleniti esse recusandae ad neque, commodi culpa illum illo nam laboriosam, qui pariatur asperiores sed necessitatibus est ut at!</p>
+        <h3>About {{data.pet_name}} </h3>
+        <p>{{data.pet_about}}</p>
       </div>
     </div>
 </div>
