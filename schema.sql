@@ -40,6 +40,6 @@ CREATE TABLE IF NOT EXISTS comment (
     comment_content VARCHAR(255) NOT NULL,
     post_id INT NOT NULL,
     PRIMARY KEY (comment_id),
-    FOREIGN KEY (post_id) REFERENCES pet(pet_id)
+    FOREIGN KEY (post_id) REFERENCES pet(pet_id),
     FOREIGN KEY (author_id) REFERENCES user(user_id)
     );
