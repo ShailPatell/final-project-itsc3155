@@ -16,6 +16,10 @@ class PetRepository:
         db.session.commit()
         return new_pet
     
+    def get_user(self, user_id):
+        result = User.query.get_or_404(user_id)
+        return result
+    
     def get_all_pets(self):
         all_pets = Pet.query.all()
         return all_pets
