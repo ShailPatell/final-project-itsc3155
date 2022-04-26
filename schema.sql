@@ -36,9 +36,10 @@ CREATE TABLE IF NOT EXISTS pet (
 
 CREATE TABLE IF NOT EXISTS comment (
 	comment_id INT AUTO_INCREMENT NOT NULL,
-    comment_author VARCHAR(255) NOT NULL,
+    author_id INT NOT NUL,
     comment_content VARCHAR(255) NOT NULL,
     post_id INT NOT NULL,
     PRIMARY KEY (comment_id),
     FOREIGN KEY (post_id) REFERENCES pet(pet_id)
+    FOREIGN KEY (author_id) REFERENCES user(user_id)
     );
