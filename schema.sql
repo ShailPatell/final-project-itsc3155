@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS pet (
 
 CREATE TABLE IF NOT EXISTS comment (
 	comment_id INT AUTO_INCREMENT NOT NULL,
-    author_id INT NOT NUL,
+    author_id INT NOT NULL,
     comment_content VARCHAR(255) NOT NULL,
     post_id INT NOT NULL,
     PRIMARY KEY (comment_id),

@@ -50,8 +50,8 @@ class Comment(db.Model):
     author_id= db.Column(db.Integer,db.ForeignKey('user.user_id'), nullable=False)
     post_id = db.Column(db.Integer,db.ForeignKey('pet.pet_id'), nullable=False)
     post = db.relationship('Pet',backref='posts_comments',lazy=True)
-    author = db.relationship('User', backref='user_id',lazy=True)
+    author = db.relationship('User', backref='user_comment',lazy=True)
 
 
     def __repr__(self):
-        return f'User({self.comment_id },{self.author_id},{self.comment_content} {self.post_id})'
+        return f'Comment({self.comment_id },{self.author_id},{self.comment_content} {self.post_id})'
