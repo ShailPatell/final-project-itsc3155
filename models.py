@@ -14,3 +14,21 @@ class User(db.Model):
 
     def __repr__(self):
         return f'User({self.user_id},{self.user_password}, {self.user_username}, {self.first_name}, {self.last_name},{self.user_age}, {self.user_gender}, {self.user_email_address})'
+
+class Pet(db.Model):
+    pet_id = db.Column(db.Integer, nullable=False,primary_key=True)
+    pet_name = db.Column(db.String, nullable=False)
+    pet_age = db.Column(db.Integer, nullable=False)
+    pet_gender = db.Column(db.String, nullable=False)
+    pet_type = db.Column(db.String, nullable=False)
+    pet_breed = db.Column(db.String, nullable=False)
+    pet_health = db.Column(db.String, nullable=False)
+    pet_training = db.Column(db.String, nullable=False)
+    city = db.Column(db.String, nullable=False)
+    state = db.Column(db.String, nullable=False)
+    pet_about = db.Column(db.String, nullable=False)
+    pet_owner = db.Column(db.Integer, nullable=False)
+    photo = db.Column(db.String, nullable=False)
+    def __repr__(self):
+        return f'Pet({self.pet_id},{self.pet_name}, {self.pet_age}, {self.pet_gender}, {self.pet_type}, {self.pet_breed}, {self.pet_health}, {self.pet_training}, {self.city}, {self.state}, {self.pet_about}, {self.pet_owner}, {self.photo} )'
+
