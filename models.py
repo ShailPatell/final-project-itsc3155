@@ -38,15 +38,3 @@ class Pet(db.Model):
     photo = db.Column(db.String, nullable=False)
     def __repr__(self):
         return f'Pet({self.pet_id},{self.pet_name}, {self.pet_age}, {self.pet_gender}, {self.pet_type}, {self.pet_breed}, {self.pet_health}, {self.pet_training}, {self.city}, {self.state}, {self.pet_about}, {self.pet_owner}, {self.photo} )'
-
-
-class User_Review(db.Model):
-
-    __tablename__ = 'user_review'
-
-    review_id  = db.Column(db.Integer, nullable=False, primary_key=True)
-    review = db.Column(db.String, nullable=False)
-    rating = db.Column(db.Integer, nullable=False)
-    user_review_id = db.Column(db.Integer, db.ForeignKey('user.user_id'),nullable=False)
-    reviews= db.relationship('Users',backref='review',lazy=True)
-

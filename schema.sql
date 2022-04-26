@@ -27,18 +27,10 @@ CREATE TABLE IF NOT EXISTS pet (
     pet_owner INT NOT NULL,
     pet_training VARCHAR(255) NOT NULL,
     pet_about VARCHAR(255) NOT NULL,
+    photo VARCHAR(255) NOT NULL,
     city VARCHAR(50) NOT NULL,
     state CHAR(2) NOT NULL,
     PRIMARY KEY (pet_id),
     FOREIGN KEY (pet_owner) REFERENCES user(user_id)
 );
 
-CREATE TABLE IF NOT EXISTS user_review (
-	review_id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    review VARCHAR(255) NULL,
-    rating DECIMAL NOT NULL,
-    user_review_id INT,
-    FOREIGN KEY (user_review_id) REFERENCES user(user_id),
-    post_id INT,
-    FOREIGN KEY (post_id) REFERENCES user(user_id)
-);
