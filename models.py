@@ -3,6 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 class User(db.Model):
+
+    __tablename__ = 'user'
+
     user_id = db.Column(db.Integer, nullable=False,primary_key=True)
     user_username = db.Column(db.String, nullable=False)
     user_password = db.Column(db.String, nullable=False)
@@ -16,6 +19,9 @@ class User(db.Model):
         return f'User({self.user_id},{self.user_password}, {self.user_username}, {self.first_name}, {self.last_name},{self.user_age}, {self.user_gender}, {self.user_email_address})'
 
 class Pet(db.Model):
+
+    __tablename__ = 'pet'
+
     pet_id = db.Column(db.Integer, nullable=False,primary_key=True)
     pet_name = db.Column(db.String, nullable=False)
     pet_age = db.Column(db.Integer, nullable=False)
@@ -27,8 +33,20 @@ class Pet(db.Model):
     city = db.Column(db.String, nullable=False)
     state = db.Column(db.String, nullable=False)
     pet_about = db.Column(db.String, nullable=False)
-    pet_owner = db.Column(db.Integer, nullable=False)
+    pet_owner = db.Column(db.Integer,db.ForeignKey('user.user_id'), nullable=False)
+    owner= db.relationship('User',backref='pets',lazy=True)
     photo = db.Column(db.String, nullable=False)
     def __repr__(self):
         return f'Pet({self.pet_id},{self.pet_name}, {self.pet_age}, {self.pet_gender}, {self.pet_type}, {self.pet_breed}, {self.pet_health}, {self.pet_training}, {self.city}, {self.state}, {self.pet_about}, {self.pet_owner}, {self.photo} )'
+
+
+class User_Review(db.Model):
+
+    __tablename__ = 'user_review'
+
+    review_id  = db.Column(db.Integer, nullable=False, primary_key=True)
+    review = db.Column(db.String, nullable=False)
+    rating = db.Column(db.Integer, nullable=False)
+    user_review_id = db.Column(db.Integer, db.ForeignKey('user.user_id'),nullable=False)
+    reviews= db.relationship('Users',backref='review',lazy=True)
 

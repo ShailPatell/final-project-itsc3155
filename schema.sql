@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS user_review (
     review VARCHAR(255) NULL,
     rating DECIMAL NOT NULL,
     user_review_id INT,
-    FOREIGN KEY (user_review_id) REFERENCES users(user_id),
+    FOREIGN KEY (user_review_id) REFERENCES user(user_id),
     post_id INT,
-    FOREIGN KEY (post_id) REFERENCES users(user_id)
+    FOREIGN KEY (post_id) REFERENCES user(user_id)
 );

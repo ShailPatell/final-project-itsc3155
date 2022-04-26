@@ -12,6 +12,8 @@ iniconfig==1.1.1
 itsdangerous==2.1.2
 Jinja2==3.1.1
 MarkupSafe==2.1.1
+mysql==0.0.3
+mysqlclient==2.1.0
 packaging==21.3
 pluggy==1.0.0
 py==1.11.0
