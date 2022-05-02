@@ -19,6 +19,17 @@
     .space-10 {
       height: 10px;
     }
+    .comment {
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+    .author {
+      color: #7a7a7a;
+    }
+    .tright {
+      text-align: right;
+    }
+
   </style>
 </head>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -38,15 +49,6 @@
               </li>
               <li class="nav-item">
               </li>
-              <!--li class="nav-item">
-                <a class="nav-link{% if adopt_link %} active{% endif %}" href="/petfinder">&ensp; Adopt a Pet</a>
-              </li-->
-              <li class="nav-item">
-                <a class="nav-link{% if faq_link %} active{% endif %}" aria-current="page" href="/faq">&ensp; About Us</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link{% if faq_link %} active{% endif %}" aria-current="page" href="/external-sources">&ensp; External Sources</a>
-              </li>
               {% if session['user'] is defined %}
                 <li class="nav-item">
                   <a class="nav-link{% if post_link %} active{% endif %}" aria-current="page" href="/petpost">&ensp; Post
@@ -56,6 +58,16 @@
                   <a class="nav-link{% if account_link %} active{% endif %}" aria-current="page" href="/view_account">&ensp; Account</a>
                 </li>
               {% endif %}
+              <li class="nav-item">
+                <a class="nav-link{% if faq_link %} active{% endif %}" aria-current="page" href="/faq">&ensp; FAQ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link{% if about_link %} active{% endif %}" aria-current="page" href="/aboutus">&ensp; About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link{% if ext_link %} active{% endif %}" aria-current="page" href="/external-sources">&ensp; External Sources</a>
+              </li>
+              
             </ul>
               <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
