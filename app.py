@@ -64,7 +64,11 @@ def view_account(user_id):
 
 @app.route('/faq')
 def faq():
-    return render_template('faq.html')
+    return render_template('faq.html', faq_link=True)
+
+@app.route('/aboutus')
+def about():
+    return render_template('aboutus.html', about_link=True)
 
 
 @app.get('/petpost')
@@ -102,12 +106,55 @@ def savepet():
     return render_template('petview.html', post_link=True, data=created_pet)
 
 
+@app.post('/postcomment')
+def postcomment():
+    comment_content = request.form.get('comment_content', '')
+    pet_id = session.get('pet_id')
+    owner = session['user'].get('user_id')
+
+    comment = pet_repository_singleton.create_comment(owner,comment_content,pet_id)
+
+    single_pet = pet_repository_singleton.get_pet(pet_id)
+    comments = pet_repository_singleton.get_comments(pet_id)
+
+    return render_template('petview.html',post_link=True, data=single_pet,comments=comments)
+
+@app.post('/editpet')
+def editpet():
+    pet_name = request.form.get('pet_name', '')
+    pet_type = request.form.get('pet_type', '')
+    pet_gender = request.form.get('pet_gender', '')
+    pet_age = 1
+    pet_breed = request.form.get('pet_breed', '')
+    pet_health = request.form.get('pet_health', '')
+    pet_training = request.form.get('pet_training', '')
+    city = request.form.get('city', '')
+    state = request.form.get('state', '')
+    pet_about = request.form.get('pet_about', '')
+
+    pet_id = session.get('pet_id')
+
+    pet_repository_singleton.update_pet(pet_id, pet_name, pet_age, pet_gender, pet_type, pet_breed, pet_health, pet_training, city, state, pet_about)
+
+    single_pet = pet_repository_singleton.get_pet(pet_id)
+    comments = pet_repository_singleton.get_comments(pet_id)
+
+    return render_template('petview.html',browse_link=True, data=single_pet,comments=comments)
+
+@app.post('/remove')
+def deletepet():
+    pet_id = session.get('pet_id')
+    pet_repository_singleton.delete_pet(pet_id)
+    return render_template('index.html',home_link=True)
+
+
+
 @app.route('/petview/<int:pet_id>')
 def petview(pet_id):
-    print(pet_id)
+    session['pet_id'] = pet_id
     single_pet = pet_repository_singleton.get_pet(pet_id)
-    print(single_pet)
-    return render_template('petview.html', post_link=True, data=single_pet)
+    comments = pet_repository_singleton.get_comments(pet_id)
+    return render_template('petview.html', browse_link=True, data=single_pet,comments=comments)
 
 
 @app.route('/login')
@@ -177,4 +224,4 @@ def reguser():
 @app.route("/external-sources")
 def external_sources():
     # ToDo:  Find a better way check for user being logged in
-    return render_template('external-sources.html')
+    return render_template('external-sources.html', ext_link=True)
