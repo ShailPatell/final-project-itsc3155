@@ -1,0 +1,60 @@
+{% extends '_layout.html' %}
+
+{% block body %}
+
+<style>
+.names {
+  font-size: 30px;
+}
+</style>
+
+<div class="container">
+	<h1 class="display-2">
+		<div class="mt-5">
+			Account information<br>
+		</div>
+	</h1>
+</div>
+
+<div class="container">
+  <div class="space-10"></div> <br><br>
+  <div class="row">
+      <div class="col">
+        <table class="table">
+          <tbody class="names">
+            <tr>
+              <td><strong>First Name</strong></td>
+              <td>{{data.first_name}}</td>
+            </tr>
+            <tr>
+              <td><strong>Last Name</strong></td>
+              <td>{{data.last_name}}</td>
+            </tr>
+            <tr>
+              <td><strong>Age</strong></td>
+              <td>{{data.user_age}}</td>
+            </tr>
+            <tr>
+              <td><strong>Username</strong></td>
+              <td>{{data.user_username}}</td>
+            </tr>
+            <tr>
+              <td><strong>Password</strong></td>
+              <td>{{data.user_password}}</td>
+            </tr>
+            <tr>
+              <td><strong>Email</strong></td>
+              <td>{{data.user_email_address}}</td>
+            </tr>
+            <tr>
+              <td><strong>Gender</strong></td>
+              <td>{{data.user_gender}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
+  <br>
+</div>
+
+{% endblock %}
