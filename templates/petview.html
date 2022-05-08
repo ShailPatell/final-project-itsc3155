@@ -1,49 +1,51 @@
-{% extends '_layout.html' %} {% block body %}
+{% extends '_layout.html' %} 
+
+{% block body %}
 
 <div class="container">
     <div class="space-10"></div>
-    <h1>Meet {{data.pet_name}}</h1>
+    <h1>Meet {{data[0].Pet.pet_name}}</h1>
     <div class="space-10"></div>
     <div class="row">
         <div class="col">
-          <img src="/static/{{data.photo}}" width="500" height="300"/>
+          <img src="/static/{{data[0].Pet.photo}}" width="500" height="300"/>
         </div>
         <div class="col">
           <table class="table">
             <tbody>
               <tr>
                 <td><strong>Age</strong></td>
-                <td>{{data.pet_age}} Year</td>
+                <td>{{data[0].Pet.pet_age}} Year</td>
               </tr>
               <tr>
                 <td><strong>Breed</strong></td>
-                <td>{{data.pet_breed}}</td>
+                <td>{{data[0].Pet.pet_breed}}</td>
               </tr>
               <tr>
                 <td><strong>Gender</strong></td>
-                <td>{{data.pet_gender}}</td>
+                <td>{{data[0].Pet.pet_gender}}</td>
               </tr>
               <tr>
                 <td><strong>Health</strong></td>
-                <td>{{data.pet_health}}</td>
+                <td>{{data[0].Pet.pet_health}}</td>
               </tr>
               <tr>
                 <td><strong>Training</strong></td>
-                <td>{{data.pet_training}}</td>
+                <td>{{data[0].Pet.pet_training}}</td>
               </tr>
               <tr>
                 <td><strong>Location</strong></td>
-                <td>{{data.city}}, {{data.state}}</td>
+                <td>{{data[0].Pet.city}}, {{data[0].Pet.state}}</td>
               </tr>
               <tr>
                 <td><strong>Contact</strong></td>
-                <td>user.email</td>
+                <td><a href="mailto:{{data[0].User.user_email_address}}?subject=PetFinder%20Inquiry:%20{{data[0].Pet.pet_name.replace(' ', '%20')}}"><i class="fas fa-envelope"></i> {{data[0].User.user_email_address}}</a></td>
               </tr>
               <tr>
                 <td></td>
                 <td style="text-align:right;">
                   {% if session['user'] is defined %}
-                    {% if session['user'].user_id == data.pet_owner %}
+                    {% if session['user'].user_id == data[0].Pet.pet_owner %}
                       <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModel">
                         Edit Your Pet
                       </button>
@@ -61,8 +63,8 @@
     <br>
     <div class="row">
       <div class="col">
-        <h3>About {{data.pet_name}} </h3>
-        <p>{{data.pet_about}}</p>
+        <h3>About {{data[0].Pet.pet_name}} </h3>
+        <p>{{data[0].Pet.pet_about}}</p>
       </div>
     </div>
     <hr/>
@@ -83,7 +85,13 @@
         {%for comment in comments%}
           <div class="comment">
             <div class="content">{{comment[0].comment_content}}</div>
-            <div class="author"><i class="fas fa-user"></i> Author: {{comment[1].user_username}}</div>
+            <div class="author"><i class="fas fa-user"></i> Author: {{comment[1].user_username}}&nbsp;&nbsp;&nbsp;
+              {% if session['user'] is defined %} 
+                {% if comment[0].author_id == session['user'].user_id %}
+                  <a href="/deletecomment?cid={{comment[0].comment_id}}"><i class="fas fa-trash"></i></a>
+                {% endif %}
+              {% endif %}
+            </div>
           </div>
         {%endfor%}
       </div>
@@ -148,109 +156,109 @@
               <div class="mb-3">
                   <label for="pet_type" class="form-label">Pet Type</label>
                   <select class="form-select" id="pet_type" name="pet_type"> 
-                      <option value="Dog" {% if data.pet_type == 'Dog'%}Selected{%endif%}>Dog</option>
-                      <option value="Cat" {% if data.pet_type == 'Cat'%}Selected{%endif%}>Cat</option>
-                      <option value="Bird" {% if data.pet_type == 'Bird'%}Selected{%endif%}>Bird</option>
+                      <option value="Dog" {% if data[0].Pet.pet_type == 'Dog'%}Selected{%endif%}>Dog</option>
+                      <option value="Cat" {% if data[0].Pet.pet_type == 'Cat'%}Selected{%endif%}>Cat</option>
+                      <option value="Bird" {% if data[0].Pet.pet_type == 'Bird'%}Selected{%endif%}>Bird</option>
                   </select>
               </div>
               <div class="mb-3">
                   <label for="pet_name" class="form-label">Pet Name</label>
-                  <input type="text" class="form-control" id="pet_name" name="pet_name" aria-describedby="namelHelp" value="{{data.pet_name}}">
+                  <input type="text" class="form-control" id="pet_name" name="pet_name" aria-describedby="namelHelp" value="{{data[0].Pet.pet_name}}">
                   <div id="nameHelp" class="form-text">Enter the name of your pet</div>
               </div>
               <div class="mb-3">
                   <label for="pet_age" class="form-label">Age</label>
-                  <input type="text" class="form-control" id="pet_age" name="pet_age" placeholder="1" aria-describedby="ageHelp" value="{{data.pet_age}}">
+                  <input type="text" class="form-control" id="pet_age" name="pet_age" placeholder="1" aria-describedby="ageHelp" value="{{data[0].Pet.pet_age}}">
                   <div id="ageHelp" class="form-text">Enter the age of your pet in years</div>
               </div>
               <div class="mb-3">
                   <label for="pet_gender" class="form-label">Gender</label>
                   <select class="form-select" id="pet_gender" name="pet_gender"> 
                       <option>Select Gender</option>
-                      <option value="Male" {% if data.pet_gender == 'Male'%}Selected{%endif%}>Male</option>
-                      <option value="Female" {% if data.pet_gender == 'Female'%}Selected{%endif%}>Female</option>
-                      <option value="Other"{% if data.pet_gender == 'Other'%}Selected{%endif%}>Other</option>
+                      <option value="Male" {% if data[0].Pet.pet_gender == 'Male'%}Selected{%endif%}>Male</option>
+                      <option value="Female" {% if data[0].Pet.pet_gender == 'Female'%}Selected{%endif%}>Female</option>
+                      <option value="Other"{% if data[0].Pet.pet_gender == 'Other'%}Selected{%endif%}>Other</option>
                   </select>
               </div>
               <div class="mb-3">
                   <label for="pet_breed" class="form-label">Pet Breed</label>
-                  <input type="text" class="form-control" id="pet_breed" name="pet_breed" placeholder="Ex: German Shepard" aria-describedby="breedHelp" value="{{data.pet_breed}}">
+                  <input type="text" class="form-control" id="pet_breed" name="pet_breed" placeholder="Ex: German Shepard" aria-describedby="breedHelp" value="{{data[0].Pet.pet_breed}}">
                   <div id="breedHelp" class="form-text">Enter the breed of your pet</div>
               </div>
               <div class="mb-3">
                 <label for="pet_health" class="form-label">Pet Health</label>
-                <textarea class="form-control" id="pet_health" name="pet_health" rows="3">{{data.pet_health}}</textarea>
+                <textarea class="form-control" id="pet_health" name="pet_health" rows="3">{{data[0].Pet.pet_health}}</textarea>
               </div>
 
             </div>
             <div class="col">
               <div class="mb-3">
                 <label for="pet_training" class="form-label">Pet Training</label>
-                <textarea class="form-control" id="pet_training" name="pet_training" rows="3">{{data.pet_training}}</textarea>
+                <textarea class="form-control" id="pet_training" name="pet_training" rows="3">{{data[0].Pet.pet_training}}</textarea>
               </div>
               <div class="mb-3">
                 <label for="pet_about" class="form-label">Tell Us About Your Pet</label>
-                <textarea class="form-control" id="pet_about" name="pet_about" rows="3">{{data.pet_about}}</textarea>
+                <textarea class="form-control" id="pet_about" name="pet_about" rows="3">{{data[0].Pet.pet_about}}</textarea>
               </div>
               <div class="mb-3">
                   <label for="city" class="form-label">City</label>
-                  <input type="text" class="form-control" id="city" name="city" aria-describedby="cityHelp" value="{{data.city}}">
+                  <input type="text" class="form-control" id="city" name="city" aria-describedby="cityHelp" value="{{data[0].Pet.city}}">
                   <div id="cityHelp" class="form-text">Enter city where your pet is located</div>
               </div>
               <div class="mb-3">
                   <label for="state" class="form-label">State</label>
                   <select class="form-select" id="state" name="state"> 
-                      <option value="AL" {% if data.state == 'AL'%}Selected{%endif%}>Alabama</option>
-                      <option value="AK" {% if data.state == 'AK'%}Selected{%endif%}>Alaska</option>
-                      <option value="AZ" {% if data.state == 'AZ'%}Selected{%endif%}>Arizona</option>
-                      <option value="AR" {% if data.state == 'AR'%}Selected{%endif%}>Arkansas</option>
-                      <option value="CA" {% if data.state == 'CA'%}Selected{%endif%}>California</option>
-                      <option value="CO" {% if data.state == 'CO'%}Selected{%endif%}>Colorado</option>
-                      <option value="CT" {% if data.state == 'CT'%}Selected{%endif%}>Connecticut</option>
-                      <option value="DE" {% if data.state == 'DE'%}Selected{%endif%}>Delaware</option>
-                      <option value="DC" {% if data.state == 'DC'%}Selected{%endif%}>District Of Columbia</option>
-                      <option value="FL" {% if data.state == 'FL'%}Selected{%endif%}>Florida</option>
-                      <option value="GA" {% if data.state == 'GA'%}Selected{%endif%}>Georgia</option>
-                      <option value="HI" {% if data.state == 'HI'%}Selected{%endif%}>Hawaii</option>
-                      <option value="ID" {% if data.state == 'ID'%}Selected{%endif%}>Idaho</option>
-                      <option value="IL" {% if data.state == 'IL'%}Selected{%endif%}>Illinois</option>
-                      <option value="IN" {% if data.state == 'IN'%}Selected{%endif%}>Indiana</option>
-                      <option value="IA" {% if data.state == 'IA'%}Selected{%endif%}>Iowa</option>
-                      <option value="KS" {% if data.state == 'KS'%}Selected{%endif%}>Kansas</option>
-                      <option value="KY" {% if data.state == 'KY'%}Selected{%endif%}>Kentucky</option>
-                      <option value="LA" {% if data.state == 'LA'%}Selected{%endif%}>Louisiana</option>
-                      <option value="ME" {% if data.state == 'ME'%}Selected{%endif%}>Maine</option>
-                      <option value="MD" {% if data.state == 'MD'%}Selected{%endif%}>Maryland</option>
-                      <option value="MA" {% if data.state == 'MA'%}Selected{%endif%}>Massachusetts</option>
-                      <option value="MI" {% if data.state == 'MI'%}Selected{%endif%}>Michigan</option>
-                      <option value="MN" {% if data.state == 'MN'%}Selected{%endif%}>Minnesota</option>
-                      <option value="MS" {% if data.state == 'MS'%}Selected{%endif%}>Mississippi</option>
-                      <option value="MO" {% if data.state == 'MO'%}Selected{%endif%}>Missouri</option>
-                      <option value="MT" {% if data.state == 'MT'%}Selected{%endif%}>Montana</option>
-                      <option value="NE" {% if data.state == 'NE'%}Selected{%endif%}>Nebraska</option>
-                      <option value="NV" {% if data.state == 'NV'%}Selected{%endif%}>Nevada</option>
-                      <option value="NH" {% if data.state == 'NH'%}Selected{%endif%}>New Hampshire</option>
-                      <option value="NJ" {% if data.state == 'NJ'%}Selected{%endif%}>New Jersey</option>
-                      <option value="NM" {% if data.state == 'NM'%}Selected{%endif%}>New Mexico</option>
-                      <option value="NY" {% if data.state == 'NY'%}Selected{%endif%}>New York</option>
-                      <option value="NC" {% if data.state == 'NC'%}Selected{%endif%}>North Carolina</option>
-                      <option value="ND" {% if data.state == 'ND'%}Selected{%endif%}>North Dakota</option>
-                      <option value="OH" {% if data.state == 'OH'%}Selected{%endif%}>Ohio</option>
-                      <option value="OK" {% if data.state == 'OK'%}Selected{%endif%}>Oklahoma</option>
-                      <option value="OR" {% if data.state == 'OR'%}Selected{%endif%}>Oregon</option>
-                      <option value="PA" {% if data.state == 'PA'%}Selected{%endif%}>Pennsylvania</option>
-                      <option value="RI" {% if data.state == 'RI'%}Selected{%endif%}>Rhode Island</option>
-                      <option value="SC" {% if data.state == 'SC'%}Selected{%endif%}>South Carolina</option>
-                      <option value="SD" {% if data.state == 'SD'%}Selected{%endif%}>South Dakota</option>
-                      <option value="TN" {% if data.state == 'TN'%}Selected{%endif%}>Tennessee</option>
-                      <option value="TX" {% if data.state == 'TX'%}Selected{%endif%}>Texas</option>
-                      <option value="UT" {% if data.state == 'UT'%}Selected{%endif%}>Utah</option>
-                      <option value="VT" {% if data.state == 'VT'%}Selected{%endif%}>Vermont</option>
-                      <option value="VA" {% if data.state == 'VA'%}Selected{%endif%}>Virginia</option>
-                      <option value="WA" {% if data.state == 'WA'%}Selected{%endif%}>Washington</option>
-                      <option value="WV" {% if data.state == 'WV'%}Selected{%endif%}>West Virginia</option>
-                      <option value="WI" {% if data.state == 'WI'%}Selected{%endif%}>Wisconsin</option>
-                      <option value="WY" {% if data.state == 'WY'%}Selected{%endif%}>Wyoming</option>
+                      <option value="AL" {% if data[0].Pet.state == 'AL'%}Selected{%endif%}>Alabama</option>
+                      <option value="AK" {% if data[0].Pet.state == 'AK'%}Selected{%endif%}>Alaska</option>
+                      <option value="AZ" {% if data[0].Pet.state == 'AZ'%}Selected{%endif%}>Arizona</option>
+                      <option value="AR" {% if data[0].Pet.state == 'AR'%}Selected{%endif%}>Arkansas</option>
+                      <option value="CA" {% if data[0].Pet.state == 'CA'%}Selected{%endif%}>California</option>
+                      <option value="CO" {% if data[0].Pet.state == 'CO'%}Selected{%endif%}>Colorado</option>
+                      <option value="CT" {% if data[0].Pet.state == 'CT'%}Selected{%endif%}>Connecticut</option>
+                      <option value="DE" {% if data[0].Pet.state == 'DE'%}Selected{%endif%}>Delaware</option>
+                      <option value="DC" {% if data[0].Pet.state == 'DC'%}Selected{%endif%}>District Of Columbia</option>
+                      <option value="FL" {% if data[0].Pet.state == 'FL'%}Selected{%endif%}>Florida</option>
+                      <option value="GA" {% if data[0].Pet.state == 'GA'%}Selected{%endif%}>Georgia</option>
+                      <option value="HI" {% if data[0].Pet.state == 'HI'%}Selected{%endif%}>Hawaii</option>
+                      <option value="ID" {% if data[0].Pet.state == 'ID'%}Selected{%endif%}>Idaho</option>
+                      <option value="IL" {% if data[0].Pet.state == 'IL'%}Selected{%endif%}>Illinois</option>
+                      <option value="IN" {% if data[0].Pet.state == 'IN'%}Selected{%endif%}>Indiana</option>
+                      <option value="IA" {% if data[0].Pet.state == 'IA'%}Selected{%endif%}>Iowa</option>
+                      <option value="KS" {% if data[0].Pet.state == 'KS'%}Selected{%endif%}>Kansas</option>
+                      <option value="KY" {% if data[0].Pet.state == 'KY'%}Selected{%endif%}>Kentucky</option>
+                      <option value="LA" {% if data[0].Pet.state == 'LA'%}Selected{%endif%}>Louisiana</option>
+                      <option value="ME" {% if data[0].Pet.state == 'ME'%}Selected{%endif%}>Maine</option>
+                      <option value="MD" {% if data[0].Pet.state == 'MD'%}Selected{%endif%}>Maryland</option>
+                      <option value="MA" {% if data[0].Pet.state == 'MA'%}Selected{%endif%}>Massachusetts</option>
+                      <option value="MI" {% if data[0].Pet.state == 'MI'%}Selected{%endif%}>Michigan</option>
+                      <option value="MN" {% if data[0].Pet.state == 'MN'%}Selected{%endif%}>Minnesota</option>
+                      <option value="MS" {% if data[0].Pet.state == 'MS'%}Selected{%endif%}>Mississippi</option>
+                      <option value="MO" {% if data[0].Pet.state == 'MO'%}Selected{%endif%}>Missouri</option>
+                      <option value="MT" {% if data[0].Pet.state == 'MT'%}Selected{%endif%}>Montana</option>
+                      <option value="NE" {% if data[0].Pet.state == 'NE'%}Selected{%endif%}>Nebraska</option>
+                      <option value="NV" {% if data[0].Pet.state == 'NV'%}Selected{%endif%}>Nevada</option>
+                      <option value="NH" {% if data[0].Pet.state == 'NH'%}Selected{%endif%}>New Hampshire</option>
+                      <option value="NJ" {% if data[0].Pet.state == 'NJ'%}Selected{%endif%}>New Jersey</option>
+                      <option value="NM" {% if data[0].Pet.state == 'NM'%}Selected{%endif%}>New Mexico</option>
+                      <option value="NY" {% if data[0].Pet.state == 'NY'%}Selected{%endif%}>New York</option>
+                      <option value="NC" {% if data[0].Pet.state == 'NC'%}Selected{%endif%}>North Carolina</option>
+                      <option value="ND" {% if data[0].Pet.state == 'ND'%}Selected{%endif%}>North Dakota</option>
+                      <option value="OH" {% if data[0].Pet.state == 'OH'%}Selected{%endif%}>Ohio</option>
+                      <option value="OK" {% if data[0].Pet.state == 'OK'%}Selected{%endif%}>Oklahoma</option>
+                      <option value="OR" {% if data[0].Pet.state == 'OR'%}Selected{%endif%}>Oregon</option>
+                      <option value="PA" {% if data[0].Pet.state == 'PA'%}Selected{%endif%}>Pennsylvania</option>
+                      <option value="RI" {% if data[0].Pet.state == 'RI'%}Selected{%endif%}>Rhode Island</option>
+                      <option value="SC" {% if data[0].Pet.state == 'SC'%}Selected{%endif%}>South Carolina</option>
+                      <option value="SD" {% if data[0].Pet.state == 'SD'%}Selected{%endif%}>South Dakota</option>
+                      <option value="TN" {% if data[0].Pet.state == 'TN'%}Selected{%endif%}>Tennessee</option>
+                      <option value="TX" {% if data[0].Pet.state == 'TX'%}Selected{%endif%}>Texas</option>
+                      <option value="UT" {% if data[0].Pet.state == 'UT'%}Selected{%endif%}>Utah</option>
+                      <option value="VT" {% if data[0].Pet.state == 'VT'%}Selected{%endif%}>Vermont</option>
+                      <option value="VA" {% if data[0].Pet.state == 'VA'%}Selected{%endif%}>Virginia</option>
+                      <option value="WA" {% if data[0].Pet.state == 'WA'%}Selected{%endif%}>Washington</option>
+                      <option value="WV" {% if data[0].Pet.state == 'WV'%}Selected{%endif%}>West Virginia</option>
+                      <option value="WI" {% if data[0].Pet.state == 'WI'%}Selected{%endif%}>Wisconsin</option>
+                      <option value="WY" {% if data[0].Pet.state == 'WY'%}Selected{%endif%}>Wyoming</option>
                   </select>
               </div>
 
