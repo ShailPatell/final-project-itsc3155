@@ -156,6 +156,7 @@ def editpet():
 
     return render_template('petview.html',browse_link=True, data=single_pet,comments=comments)
 
+
 @app.post('/remove')
 def deletepet():
     pet_id = session.get('pet_id')
@@ -241,6 +242,13 @@ def reguser():
 def external_sources():
     # ToDo:  Find a better way check for user being logged in
     return render_template('external-sources.html', ext_link=True)
+
+@app.post("/editcomment")
+def edit_comment():
+    comment_id = request.form.get('comment_id')
+    comment_content = request.form.get('comment_content')
+    pet_repository_singleton.update_comment(comment_content, comment_id)
+    return redirect('/petview/' + str(session.get('pet_id')))
 
 @app.route("/deletecomment")
 def delete_comment():
