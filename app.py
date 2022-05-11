@@ -28,7 +28,6 @@ def index():
 @app.route('/browse')
 def browse():
     pet_type = request.args.get('pettype')
-    print(pet_type)
     if(pet_type == 'All'):
         all_pets = pet_repository_singleton.get_all_pets()
     else:
@@ -64,7 +63,6 @@ def account():
 def view_account():
     user_id = session['user'].get('user_id')
     single_user = pet_repository_singleton.get_user(user_id)
-    print(single_user)
     return render_template('account.html', acct_link=True, data=single_user)
 
 
@@ -101,7 +99,6 @@ def savepet():
     # Get thie image from the form
 
     image = request.files['photo']
-    print(image.filename)
 
     if image:
         # save the image to the satic folder
@@ -157,6 +154,7 @@ def editpet():
 
     return render_template('petview.html',browse_link=True, data=single_pet,comments=comments)
 
+
 @app.post('/remove')
 def deletepet():
     pet_id = session.get('pet_id')
@@ -187,7 +185,6 @@ def loginuser():
         abort(400)
 
     existing_user = User.query.filter_by(user_username=username).first()
-    print(existing_user)
 
     if not existing_user or existing_user.user_id == 0:
         return redirect('/login')
@@ -201,7 +198,6 @@ def loginuser():
         'user_email': existing_user.user_email_address,
         'first_name': existing_user.first_name
     }
-    print(session['user'].get('username'))
     return render_template('index.html')
 
 
@@ -243,6 +239,13 @@ def external_sources():
     # ToDo:  Find a better way check for user being logged in
     return render_template('external-sources.html', ext_link=True)
 
+@app.post("/editcomment")
+def edit_comment():
+    comment_id = request.form.get('comment_id')
+    comment_content = request.form.get('comment_content')
+    pet_repository_singleton.update_comment(comment_content, comment_id)
+    return redirect('/petview/' + str(session.get('pet_id')))
+
 @app.route("/deletecomment")
 def delete_comment():
     cid = request.args.get('cid')
@@ -255,7 +258,6 @@ def deactivate():
     #delete all pets
     results = pet_repository_singleton.get_my_listings(session['user'].get('user_id'))
     for pet in results:
-        print(pet)
         pet_repository_singleton.delete_pet(pet.pet_id)
 
     #delete user

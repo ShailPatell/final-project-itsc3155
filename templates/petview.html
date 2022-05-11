@@ -90,6 +90,11 @@
                 {% if comment[0].author_id == session['user'].user_id %}
                   <a href="/deletecomment?cid={{comment[0].comment_id}}"><i class="fas fa-trash"></i></a>
                 {% endif %}
+                {% if comment[0].author_id == session['user'].user_id %}
+                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#commentEditModel" data-comment="{{comment[0].comment_content}}" data-cid="{{comment[0].comment_id}}">
+                  <i class="fas fa-edit"></i>
+                </button>
+                {% endif %}
               {% endif %}
             </div>
           </div>
@@ -110,6 +115,32 @@
             <div class="mb-3">
               <label for="comment_content" class="form-label">Comment / Question</label>
               <textarea class="form-control" id="comment_content" name="comment_content" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="commentEditModel" tabindex="-1" aria-labelledby="commentEditModel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Comment</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/editcomment" method="POST">
+        <div class="modal-body">
+            <div class="form-group">
+              <label for="comment_content" class="form-label">Comment / Question</label>
+              <textarea class="form-control" id="comment_content" name="comment_content" rows="3"></textarea>
+            </div>
+            <div class="invisible">
+              <input type="text" class="form-control" id="comment_id" name="comment_id" value="5">
             </div>
         </div>
         <div class="modal-footer">
@@ -275,5 +306,16 @@
   </div>
 </div>
 
+<script>
+  $('#commentEditModel').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) 
+    var content = button.data('comment') 
+    var cid = button.data('cid') 
+
+    var modal = $(this)
+    modal.find('.modal-body textarea').text(content)
+    modal.find('.modal-body input').val(cid)
+  })
+</script>
 
 {% endblock %}
