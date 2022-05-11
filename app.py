@@ -137,7 +137,7 @@ def editpet():
     pet_name = request.form.get('pet_name', '')
     pet_type = request.form.get('pet_type', '')
     pet_gender = request.form.get('pet_gender', '')
-    pet_age = 1
+    pet_age = int(request.form.get('pet_age',''))
     pet_breed = request.form.get('pet_breed', '')
     pet_health = request.form.get('pet_health', '')
     pet_training = request.form.get('pet_training', '')
