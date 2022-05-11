@@ -235,7 +235,7 @@ def reguser():
 
     created_user = pet_repository_singleton.create_user(
         user_username, hashed_password, first_name, last_name, user_age, user_gender, user_email_address)
-    return redirect(f'/browse?pettype=All')
+    return redirect('/login')
 
 @app.route("/external-sources")
 def external_sources():
