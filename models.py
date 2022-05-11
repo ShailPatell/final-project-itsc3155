@@ -18,6 +18,15 @@ class User(db.Model):
     def __repr__(self):
         return f'User({self.user_id},{self.user_password}, {self.user_username}, {self.first_name}, {self.last_name},{self.user_age}, {self.user_gender}, {self.user_email_address})'
 
+    def __init__(self, user_username , user_password, first_name, last_name, user_age,user_gender,user_email_address):
+        self.user_username = user_username
+        self.user_password = user_password
+        self.first_name = first_name
+        self.last_name = last_name
+        self.user_age = user_age
+        self.user_gender = user_gender
+        self.user_email_address = user_email_address
+
 class Pet(db.Model):
 
     __tablename__ = 'pet'

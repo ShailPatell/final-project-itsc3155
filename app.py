@@ -140,6 +140,7 @@ def postcomment():
 
     return render_template('petview.html',post_link=True, data=single_pet,comments=comments)
 
+
 @app.post('/editpet')
 def editpet():
     pet_name = request.form.get('pet_name', '')
