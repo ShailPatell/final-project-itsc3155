@@ -11,9 +11,9 @@ app = Flask(__name__)
 
 db = SQLAlchemy()
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('PET_DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('PET_DATABASE_URL', 'sqlite:///test.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = os.getenv('SECRET_KEY')
+app.secret_key = os.getenv('SECRET_KEY', 'abc123')
 
 bcrypt = Bcrypt(app)
 db.init_app(app)
@@ -133,6 +133,7 @@ def postcomment():
     comments = pet_repository_singleton.get_comments(pet_id)
 
     return render_template('petview.html',post_link=True, data=single_pet,comments=comments)
+
 
 @app.post('/editpet')
 def editpet():
