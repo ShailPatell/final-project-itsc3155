@@ -1,7 +1,3 @@
-
-
-
-
 def test_faq_page(test_app):
     res = test_app.get('/faq')
 
@@ -51,10 +47,8 @@ def test_create_user(test_app):
     assert b'Browse Pets' in res.data
     assert b'Pet Type' in res.data
     
+
     
-
-
-
 def test_login(test_app):
     res = test_app.post('/login', data={
         'user_username':'khaill',
