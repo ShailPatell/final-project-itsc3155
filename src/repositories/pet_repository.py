@@ -34,6 +34,14 @@ class PetRepository:
         db.session.commit()
         return 1
 
+    def update_comment(self, comment_id, author_id,comment_content,post_id):
+        upd = update(Comment)
+        upd = upd.values(author_id=author_id,comment_content = comment_content, post_id = post_id)
+        upd = upd.where(Comment.comment_id == comment_id)
+        db.session.execute(upd)
+        db.session.commit()
+        return 1
+
     def create_comment(self, author_id, comment_content, post_id):
         new_comment = Comment(author_id=author_id, comment_content=comment_content, post_id=post_id)
         db.session.add(new_comment)
