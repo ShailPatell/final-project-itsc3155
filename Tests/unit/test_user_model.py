@@ -1,4 +1,4 @@
-import imp
+
 from models import User
 
 def test_user_model():
