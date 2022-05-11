@@ -6,41 +6,24 @@
     <div class="space-10"></div>
     <h1>Browse Pets </h1>
     <div class="row g-3">
+        <form action="/browse" method="get">
         <div class="col">
-            <div class="mt-5">
-                <label for="age" class="form-label">Age</label>
-                <select class="form-select" id="age">
-                    <option selected>Select Age</option>
-                    <option value="1">Two</option>
-                    <option value="2">Four</option>
-                    <option value="3">Siz</option>
-                </select>
+            <div class="mt-4">
+                <label for="pettype" class="form-label"><i class="fas fa-filter"></i> Pet Type</label>
+                <select class="form-select" id="pettype" name="pettype">
+                    <option value="All" {% if query == 'All'%}Selected{%endif%}>All</option>
+                    <option value="Dog" {% if query == 'Dog'%}Selected{%endif%}>Dog</option>
+                    <option value="Cat" {% if query == 'Cat'%}Selected{%endif%}>Cat</option>
+                    <option value="Bird"{% if query == 'Bird'%}Selected{%endif%}>Bird</option>
+                </select>    
             </div>
         </div>
-
         <div class="col">
             <div class="mt-5">
-                <label for="species" class="form-label">Species</label>
-                <select class="form-select" id="species">
-                    <option selected>Select Species</option>
-                    <option value="1">Cat</option>
-                    <option value="2">Dog</option>
-                    <option value="3">Rabbit</option>
-                </select>
+                <button class="btn btn-primary" type="submit">Query</button>
             </div>
         </div>
-
-        <div class="col">
-            <div class="mt-5">
-                <label for="breed" class="form-label">Breed</label>
-                <select class="form-select" id="breed">
-                    <option selected>Select Breed</option>
-                    <option value="1">Terrier</option>
-                    <option value="2">Bull Dog</option>
-                    <option value="3">Taby</option>
-                </select>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
 <br><br><br>
