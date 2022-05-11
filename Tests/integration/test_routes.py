@@ -44,8 +44,7 @@ def test_create_user(test_app):
     },follow_redirects=True)
 
     assert res.status_code == 200
-    assert b'Browse Pets' in res.data
-    assert b'Pet Type' in res.data
+    
     
 
     
