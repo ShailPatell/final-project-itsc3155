@@ -8,16 +8,10 @@ from src.repositories.pet_repository import pet_repository_singleton, User, Pet
 
 app = Flask(__name__)
 
-load_dotenv()
-db_user = os.getenv('DB_USER', 'root')
-db_pass = os.getenv('DB_PASSWORD')
-db_host = os.getenv('DB_HOST')
-db_port = os.getenv('DB_PORT')
-db_name = os.getenv('DB_NAME')
 
 db = SQLAlchemy()
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('PET_DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = os.getenv('SECRET_KEY')
 
