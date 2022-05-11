@@ -11,9 +11,9 @@ app = Flask(__name__)
 
 db = SQLAlchemy()
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('PET_DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('CLEARDB_DATABASE_URL', 'sqlite:///test.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = os.getenv('SECRET_KEY')
+app.secret_key = os.getenv('SECRET_KEY', 'abc123')
 
 bcrypt = Bcrypt(app)
 db.init_app(app)
@@ -131,6 +131,7 @@ def postcomment():
 
     return render_template('petview.html',post_link=True, data=single_pet,comments=comments)
 
+
 @app.post('/editpet')
 def editpet():
     pet_name = request.form.get('pet_name', '')
@@ -231,7 +232,7 @@ def reguser():
 
     created_user = pet_repository_singleton.create_user(
         user_username, hashed_password, first_name, last_name, user_age, user_gender, user_email_address)
-    return redirect(f'/browse?pettype=All')
+    return redirect('/login')
 
 @app.route("/external-sources")
 def external_sources():

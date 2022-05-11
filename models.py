@@ -18,6 +18,15 @@ class User(db.Model):
     def __repr__(self):
         return f'User({self.user_id},{self.user_password}, {self.user_username}, {self.first_name}, {self.last_name},{self.user_age}, {self.user_gender}, {self.user_email_address})'
 
+    def __init__(self, user_username , user_password, first_name, last_name, user_age,user_gender,user_email_address):
+        self.user_username = user_username
+        self.user_password = user_password
+        self.first_name = first_name
+        self.last_name = last_name
+        self.user_age = user_age
+        self.user_gender = user_gender
+        self.user_email_address = user_email_address
+
 class Pet(db.Model):
 
     __tablename__ = 'pet'
@@ -40,6 +49,20 @@ class Pet(db.Model):
     def __repr__(self):
         return f'Pet({self.pet_id},{self.pet_name}, {self.pet_age}, {self.pet_gender}, {self.pet_type}, {self.pet_breed}, {self.pet_health}, {self.pet_training}, {self.city}, {self.state}, {self.pet_about}, {self.pet_owner}, {self.photo} )'
 
+    def __init__(self,pet_name, pet_age, pet_gender, pet_type, pet_breed, pet_health , pet_training , city, state, pet_about, pet_owner, photo):
+        self.pet_name = pet_name
+        self.pet_age = pet_age
+        self.pet_gender = pet_gender
+        self.pet_type = pet_type
+        self.pet_breed = pet_breed
+        self.pet_health = pet_health
+        self.pet_training = pet_training
+        self.city = city
+        self.state = state
+        self.pet_about = pet_about
+        self.pet_owner = pet_owner
+        self.photo = photo
+
 
 class Comment(db.Model):
 
@@ -54,3 +77,10 @@ class Comment(db.Model):
 
     def __repr__(self):
         return f'Comment({self.comment_id },{self.author_id},{self.comment_content} {self.post_id})'
+
+    def __init__(self, comment_content, author_id, post_id):
+        self.comment_content = comment_content
+        self.author_id = author_id
+        self.post_id = post_id
+    
+    
